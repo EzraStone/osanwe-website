@@ -1,94 +1,62 @@
-/* Osanwë deck — slide chrome, navigation and reveal.
-   No dependencies. Progressive: without JS the slides still scroll and read. */
+/* Osanwë — reveal on scroll, and a header that recolors over dark sections.
+   Scrolling itself is left entirely to the browser: no wheel hijacking, no
+   snap container, no scroll listeners. */
 
 (function () {
   'use strict';
 
-  var deck   = document.getElementById('deck');
-  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
-  var dotBar = document.querySelector('.dots');
-  var curEl  = document.getElementById('cur');
-  var totEl  = document.getElementById('total');
-  var skip   = document.getElementById('skip');
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  if (!deck || !slides.length) return;
+  /* ── reveal ───────────────────────────────────────────────────── */
+  var items = document.querySelectorAll('.reveal');
 
-  var active = 0;
-  var pad = function (n) { return String(n + 1).padStart(2, '0'); };
+  if (reduce || !('IntersectionObserver' in window)) {
+    Array.prototype.forEach.call(items, function (el) { el.classList.add('in'); });
+  } else {
+    var revealer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('in');
+        revealer.unobserve(e.target);       // reveal once, then stop watching
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
 
-  totEl.textContent = pad(slides.length - 1);
-
-  /* ── dots ─────────────────────────────────────────────────────── */
-  var dots = slides.map(function (slide, i) {
-    var b = document.createElement('button');
-    b.type = 'button';
-    b.setAttribute('aria-label', 'Go to slide ' + (i + 1) + ': ' + (slide.dataset.label || ''));
-    b.addEventListener('click', function () { go(i); });
-    dotBar.appendChild(b);
-    return b;
-  });
-
-  function go(i) {
-    i = Math.max(0, Math.min(slides.length - 1, i));
-    slides[i].scrollIntoView({
-      behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
-    });
+    Array.prototype.forEach.call(items, function (el) { revealer.observe(el); });
   }
 
-  /* ── chrome colour follows the active slide ───────────────────── */
-  function paint(slide) {
-    var dark = slide.dataset.theme === 'dark';
-    var root = document.documentElement.style;
-    root.setProperty('--chrome-ink',  dark ? '#eef1f3' : '#0d1217');
-    root.setProperty('--chrome-mute', dark ? '#666e75' : '#8b9299');
-    root.setProperty('--page-edge',   dark ? '#050607' : '#eff1f1');
-    document.body.style.background = dark ? '#050607' : '#eff1f1';
-    var meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', dark ? '#050607' : '#eff1f1');
+  /* ── header follows the section beneath it ────────────────────── */
+  var chrome   = document.getElementById('chrome');
+  var sections = document.querySelectorAll('[data-theme]');
+  var themeMeta = document.querySelector('meta[name="theme-color"]');
+
+  if (!chrome || !sections.length || !('IntersectionObserver' in window)) return;
+
+  var PALETTE = {
+    light: { ink:'#0d1217', mute:'#6f767d', bg:'rgba(239,241,241,.82)', line:'#dbe0e4', meta:'#eff1f1' },
+    dark:  { ink:'#eef1f3', mute:'#848d95', bg:'rgba(5,6,7,.80)',       line:'#1c2126', meta:'#050607' }
+  };
+
+  var current = null;
+  function apply(theme) {
+    if (theme === current) return;
+    current = theme;
+    var c = PALETTE[theme] || PALETTE.light;
+    var s = document.documentElement.style;
+    s.setProperty('--chrome-ink',  c.ink);
+    s.setProperty('--chrome-mute', c.mute);
+    s.setProperty('--chrome-bg',   c.bg);
+    s.setProperty('--chrome-line', c.line);
+    if (themeMeta) themeMeta.setAttribute('content', c.meta);
   }
 
-  function setActive(i) {
-    if (i === active) return;
-    active = i;
-    curEl.textContent = pad(i);
-    dots.forEach(function (d, n) {
-      if (n === i) d.setAttribute('aria-current', 'true');
-      else d.removeAttribute('aria-current');
-    });
-    paint(slides[i]);
-    skip.classList.toggle('hidden', i === slides.length - 1);
-  }
-
-  /* ── reveal + active tracking ─────────────────────────────────── */
-  var io = new IntersectionObserver(function (entries) {
+  /* Fire for whichever section currently sits under the header band. */
+  var band = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
-      if (e.isIntersecting) e.target.classList.add('in');
-      if (e.intersectionRatio >= 0.55) setActive(slides.indexOf(e.target));
+      if (e.isIntersecting) apply(e.target.dataset.theme);
     });
-  }, { threshold: [0.25, 0.55, 0.9] });
+  }, { rootMargin: '-64px 0px -100% 0px', threshold: 0 });
 
-  slides.forEach(function (s) { io.observe(s); });
+  Array.prototype.forEach.call(sections, function (el) { band.observe(el); });
 
-  /* first slide paints immediately, before any scroll happens */
-  paint(slides[0]);
-  dots[0].setAttribute('aria-current', 'true');
-  curEl.textContent = pad(0);
-  requestAnimationFrame(function () { slides[0].classList.add('in'); });
-
-  /* ── keyboard ─────────────────────────────────────────────────── */
-  document.addEventListener('keydown', function (e) {
-    if (e.metaKey || e.ctrlKey || e.altKey) return;
-    switch (e.key) {
-      case 'ArrowDown': case 'PageDown': case ' ':
-        e.preventDefault(); go(active + 1); break;
-      case 'ArrowUp': case 'PageUp':
-        e.preventDefault(); go(active - 1); break;
-      case 'Home':
-        e.preventDefault(); go(0); break;
-      case 'End':
-        e.preventDefault(); go(slides.length - 1); break;
-    }
-  });
-
-  skip.addEventListener('click', function () { go(active + 1); });
+  apply(sections[0].dataset.theme);
 })();

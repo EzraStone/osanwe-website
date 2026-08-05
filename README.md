@@ -1,18 +1,18 @@
 # osanwe-website
 
-Promotional site for **Osanwë** — an anonymity network for AI inference.
+Promotional site for **Osanwë** — a privacy layer for AI.
 
 Design repository: [EzraStone/Osanw-](https://github.com/EzraStone/osanwe-)
 
 ## What this is
 
-A single-page, eight-slide scroll deck. No build step, no dependencies, no external requests —
-three files and a `.nojekyll`. Open `index.html` in a browser and it runs.
+A single scrolling page that explains the product. No build step, no dependencies, no external
+requests — three files and a `.nojekyll`. Open `index.html` in a browser and it runs.
 
 ```
 index.html          markup + inline SVG for every graphic
 assets/styles.css   design system, layout, motion
-assets/app.js       slide chrome, dot nav, keyboard, reveal
+assets/app.js       reveal-on-scroll, header theming
 ```
 
 ## Running it
@@ -28,52 +28,59 @@ Or just open `index.html` directly — there is nothing to compile.
 GitHub Pages, served from the repository root: **Settings → Pages → Deploy from a branch →
 `main` / `(root)`**. The `.nojekyll` file stops Jekyll from touching the assets.
 
-## The deck
+## Page structure
 
-| # | Slide | Theme |
-|---|---|---|
-| 01 | Keep your prompts to yourself. | light |
-| 02 | Your prompt is thought in transit. | light |
-| 03 | Onion routing hides your IP. Your API key still has your name on it. | dark |
-| 04 | Three parties. None of them sees both halves. | light |
-| 05 | Frontier models don't run on donated hardware. | dark |
-| 06 | It's your thought. | dark |
-| 07 | Everything waits on one number. | dark |
-| 08 | What it won't do. | light |
+| Section | Job |
+|---|---|
+| Hero | Say what the product is in one sentence, before anything else |
+| The problem | The five identity-leak channels, and which ones v1 actually closes |
+| Statement | The reframe: routing is the easy half |
+| How it works | Three concrete steps, in plain language |
+| Architecture | The three parties, each explained rather than just named |
+| Limits | Two columns — what it does, what it won't do |
+| Status | Nothing is built; the phase list, with Phase 0 as the gate |
+| Closing | Read the design |
 
-Slides 03, 05 and 08 exist because the design document's most useful claims are the ones that
-concede something. The deck is built to lead with the reframe rather than the promise.
+## Scrolling
+
+The page uses **ordinary document scrolling**, deliberately. An earlier version was a
+`scroll-snap-type: y mandatory` deck with `scroll-snap-stop: always` and `scroll-behavior: smooth`
+on the snap container — a combination that fights the wheel, stutters on trackpads, and makes fast
+scrolling impossible. All of it is gone.
+
+What remains: `scroll-behavior: smooth` on `html` for anchor links only, and `scroll-padding-top`
+so anchored sections clear the fixed header. **No scroll listeners, no wheel hijacking, no snap.**
+If you change this file, keep it that way.
 
 ## Copy constraints
 
 The wording here is governed by
 [ADR 0001](https://github.com/EzraStone/osanwe-/blob/main/docs/decisions/0001-byok-first.md) in the
-design repository, which commits the project to bring-your-own-key first. Two rules follow, and
-**both must hold in any future edit**:
+design repository, which commits the project to bring-your-own-key first. Three rules follow, and
+**all must hold in any future edit**:
 
 1. **Never imply the provider cannot identify the account.** v1 hides IP and location. It does not
-   hide who is paying. Claiming otherwise would be the single most damaging thing this site could
-   do to the project's credibility.
-2. **Never imply a shippable product exists.** Nothing is built. The CTAs point at the design, not
-   at a download, and slide 08 says so in plain language.
-
-Slide 08 (`What it won't do`) is load-bearing and should not be cut for being off-message. Stating
-the limits up front is the message.
+   hide who is paying — the table in "the problem" section marks that as Phase 3, and the limits
+   column says it outright. Claiming otherwise would be the single most damaging thing this site
+   could do to the project's credibility.
+2. **Never imply a shippable product exists.** Nothing is built. The status section says so in its
+   heading, and the CTAs point at the design rather than a download.
+3. **Never soften the limits section.** Stating what the network cannot do — especially that no
+   network can hide your writing style — is the message, not a disclaimer attached to it.
 
 ## Design notes
 
 - **Palette.** `#eff1f1` light, `#050607` dark, `#1668c4` blue. One accent, used sparingly.
-- **Type.** System grotesque at weight 700 with `-0.035em` tracking for headlines; system monospace
-  at `0.1em` for all chrome and captions. No webfonts, so nothing to load and nothing to leak.
-- **Motion.** Reveals are staggered per slide and driven by `IntersectionObserver`. Everything is
-  disabled under `prefers-reduced-motion`.
-- **Chrome.** The header, counter and dot rail recolor per slide via a `data-theme` attribute read
-  in `app.js`, which also drives `theme-color` so mobile browser UI follows.
-- **Navigation.** Scroll, swipe, arrow keys, space, Home/End, or the dot rail. The rail is hidden
-  below 760px, where it would otherwise sit on top of the copy.
+- **Type.** System grotesque at weight 700 with `-0.03em` tracking for headlines; system monospace
+  at `0.1em` for eyebrows, captions and chrome. No webfonts, so nothing to load and nothing to leak.
+- **Motion.** Sections reveal once via `IntersectionObserver`, then unobserve. Fully disabled under
+  `prefers-reduced-motion`.
+- **Header.** Fixed, with a blurred backdrop, recoloring as it passes over dark sections — driven by
+  a `data-theme` attribute read in `app.js`, which also updates `theme-color` so mobile browser
+  chrome follows.
 
 ## Accessibility
 
-Keyboard navigable throughout, visible focus rings, labelled dot controls, and full
-`prefers-reduced-motion` support. Without JavaScript the slides still scroll and read — only the
-counter and dot rail go inert.
+Keyboard navigable, visible focus rings, semantic sections and anchor navigation, and full
+`prefers-reduced-motion` support. Without JavaScript the page reads normally — only the reveal
+animation and the header recolor go inert.

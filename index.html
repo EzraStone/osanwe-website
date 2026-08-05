@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Osanwë — anonymity for AI inference</title>
-<meta name="description" content="An anonymity network for AI inference. Onion routing hides your IP; your API key still has your name on it. Osanwë is the design for fixing the half that matters.">
+<title>Osanwë — a privacy layer for AI</title>
+<meta name="description" content="Point your AI tool at Osanwë instead of straight at the provider. Your prompt still gets answered — it just doesn’t arrive with your IP address attached, and no relay along the way can read it.">
 <meta name="theme-color" content="#eff1f1">
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="Osanwë — anonymity for AI inference">
-<meta property="og:description" content="Onion routing hides your IP. Your API key still has your name on it.">
+<meta property="og:title" content="Osanwë — a privacy layer for AI">
+<meta property="og:description" content="Your prompt still reaches Claude or GPT. It just doesn’t arrive with your IP address attached — and no relay along the way can read it.">
 <meta name="twitter:card" content="summary_large_image">
 
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='13' fill='none' stroke='%230d1217' stroke-width='2'/><circle cx='16' cy='16' r='4' fill='%231668c4'/></svg>">
@@ -17,177 +17,278 @@
 </head>
 <body>
 
-<!-- ── fixed chrome ───────────────────────────────────────────── -->
-<div class="frame" aria-hidden="true"></div>
-
-<header class="chrome">
-  <div class="brand"><b>osanwë</b> <span>/ overview</span></div>
-  <div class="counter"><span id="cur">01</span> / <span id="total">08</span></div>
+<header class="chrome" id="chrome">
+  <a class="brand" href="#top"><b>osanwë</b> <span>/ overview</span></a>
+  <nav class="chrome-nav mono">
+    <a href="#how">how it works</a>
+    <a href="#limits">limits</a>
+    <a href="#status">status</a>
+    <a href="https://github.com/EzraStone/osanwe-">design&nbsp;→</a>
+  </nav>
 </header>
 
-<nav class="dots" aria-label="Slide navigation">
-  <!-- populated by app.js -->
-</nav>
+<main id="top">
 
-<button class="skip" id="skip" aria-label="Go to next slide">
-  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
-    <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg>
-</button>
-
-<!-- ── deck ───────────────────────────────────────────────────── -->
-<main class="deck" id="deck">
-
-  <!-- 01 ─ hero ------------------------------------------------- -->
-  <section class="slide light hero" data-theme="light" data-label="Home">
-    <div class="hero-grid">
-      <div class="hero-copy">
-        <p class="mono link-blue">osanwe</p>
-        <h1>Keep your prompts<br>to yourself.</h1>
-        <div class="cta">
-          <a class="btn" href="https://github.com/EzraStone/osanwe-">Read the design</a>
-          <a class="btn-ghost mono" href="https://github.com/EzraStone/osanwe-">view source <span>→</span></a>
-        </div>
-        <p class="mono muted row">no content logs &nbsp; no backdoors &nbsp; no client-side scanning</p>
-      </div>
-      <div class="hero-art" aria-hidden="true">
-        <svg viewBox="0 0 460 460" class="disc">
-          <defs>
-            <radialGradient id="g1" cx="46%" cy="40%" r="62%">
-              <stop offset="0%"   stop-color="#a9c6e2" stop-opacity="1"/>
-              <stop offset="45%"  stop-color="#bed4e8" stop-opacity=".9"/>
-              <stop offset="78%"  stop-color="#d7e2ec" stop-opacity=".6"/>
-              <stop offset="100%" stop-color="#eff1f1" stop-opacity="0"/>
-            </radialGradient>
-          </defs>
-          <circle cx="230" cy="230" r="215" fill="none" stroke="#d3dae0" stroke-width="1"/>
-          <circle cx="230" cy="230" r="176" fill="none" stroke="#ccd5dd" stroke-width="1"/>
-          <circle cx="230" cy="230" r="138" fill="none" stroke="#c3ced8" stroke-width="1"/>
-          <circle cx="230" cy="230" r="112" fill="url(#g1)"/>
-          <circle cx="230" cy="230" r="112" fill="none" stroke="#b7c6d4" stroke-width="1"/>
-          <circle cx="392" cy="286" r="5" fill="#1668c4"/>
-        </svg>
-      </div>
-    </div>
-  </section>
-
-  <!-- 02 ─ thesis ----------------------------------------------- -->
-  <section class="slide light center" data-theme="light" data-label="Thesis">
-    <div class="stack">
-      <svg class="target" viewBox="0 0 96 96" aria-hidden="true">
-        <circle cx="48" cy="48" r="34" fill="none" stroke="#c9d4de" stroke-width="1.5"/>
-        <circle cx="48" cy="48" r="24" fill="none" stroke="#a9bccd" stroke-width="1.5"/>
-        <circle cx="48" cy="48" r="14" fill="none" stroke="#6f9dcb" stroke-width="1.5"/>
-        <circle cx="48" cy="48" r="5.5" fill="#1668c4"/>
-      </svg>
-      <h2>Your prompt is thought<br>in transit.</h2>
-      <p class="mono muted">ósanwë &middot; the mind may close itself against intrusion</p>
-    </div>
-  </section>
-
-  <!-- 03 ─ the reframe ------------------------------------------ -->
-  <section class="slide dark center grid-dots" data-theme="dark" data-label="The reframe">
-    <div class="stack">
-      <p class="mono link-blue">osanwe/threat-model</p>
-      <h2>Onion routing hides your IP.<br>Your API key still has<br>your name on it.</h2>
-      <p class="mono muted">five leak channels &nbsp;&middot;&nbsp; routing fixes one</p>
-    </div>
-  </section>
-
-  <!-- 04 ─ architecture ----------------------------------------- -->
-  <section class="slide light center" data-theme="light" data-label="Architecture">
-    <div class="stack">
-      <div class="rings" aria-hidden="true">
-        <figure>
-          <svg viewBox="0 0 120 120">
-            <circle cx="60" cy="60" r="46" fill="none" stroke="#d3dce4" stroke-width="7"/>
-            <circle cx="60" cy="60" r="46" fill="none" stroke="#1668c4" stroke-width="7"
-                    stroke-linecap="round" stroke-dasharray="96 289" transform="rotate(-90 60 60)"/>
-          </svg>
-          <figcaption class="mono">mint</figcaption>
-        </figure>
-        <figure>
-          <svg viewBox="0 0 120 120">
-            <circle cx="60" cy="60" r="46" fill="none" stroke="#d3dce4" stroke-width="7"/>
-            <circle cx="60" cy="60" r="46" fill="none" stroke="#7ba8d2" stroke-width="7"
-                    stroke-linecap="round" stroke-dasharray="96 289" transform="rotate(30 60 60)"/>
-          </svg>
-          <figcaption class="mono">relay</figcaption>
-        </figure>
-        <figure>
-          <svg viewBox="0 0 120 120">
-            <circle cx="60" cy="60" r="46" fill="none" stroke="#d3dce4" stroke-width="7"/>
-            <circle cx="60" cy="60" r="46" fill="none" stroke="#1668c4" stroke-width="7"
-                    stroke-linecap="round" stroke-dasharray="96 289" transform="rotate(150 60 60)"/>
-          </svg>
-          <figcaption class="mono">gateway</figcaption>
-        </figure>
-      </div>
-      <h2>Three parties. None of them<br>sees both halves.</h2>
-      <p class="mono muted">identity ends here &nbsp;&middot;&nbsp; content begins there</p>
-    </div>
-  </section>
-
-  <!-- 05 ─ the honest bit --------------------------------------- -->
-  <section class="slide dark center" data-theme="dark" data-label="Honest limits">
-    <div class="stack">
-      <p class="mono link-blue">osanwe/architecture</p>
-      <h2>Frontier models don&rsquo;t run<br>on donated hardware.</h2>
-      <p class="mono muted">so we relay the bytes &mdash; and split the compute market off</p>
-    </div>
-  </section>
-
-  <!-- 06 ─ the claim -------------------------------------------- -->
-  <section class="slide dark center glow" data-theme="dark" data-label="Confidentiality">
-    <div class="stack">
-      <p class="mono link-blue">osanwë</p>
-      <h2>It&rsquo;s your thought.</h2>
-      <p class="mono muted">end-to-end tls &nbsp;&middot;&nbsp; no relay ever sees a prompt</p>
-    </div>
-  </section>
-
-  <!-- 07 ─ the measurement -------------------------------------- -->
-  <section class="slide dark chart-slide" data-theme="dark" data-label="Phase 0">
-    <div class="chart" aria-hidden="true">
-      <svg viewBox="0 0 1200 520" preserveAspectRatio="none">
-        <line x1="0" y1="130" x2="1200" y2="130" stroke="#161a1e" stroke-width="1"/>
-        <line x1="0" y1="260" x2="1200" y2="260" stroke="#161a1e" stroke-width="1"/>
-        <line x1="0" y1="390" x2="1200" y2="390" stroke="#161a1e" stroke-width="1"/>
-        <path d="M0 486 C 340 482, 600 470, 760 408 S 960 214, 1075 96"
-              fill="none" stroke="#2b82e8" stroke-width="2.6" stroke-linecap="round"/>
-        <path d="M0 508 C 340 500, 760 476, 1200 436"
-              fill="none" stroke="#333a41" stroke-width="1.4" stroke-dasharray="6 7"/>
-        <circle cx="1075" cy="96" r="4.5" fill="#2b82e8"/>
-      </svg>
-    </div>
-    <div class="chart-copy">
-      <p class="mono link-blue">osanwe/phase-0</p>
-      <h2>Everything waits<br>on one number.</h2>
-      <p class="mono muted">p95 time to first token &nbsp;&middot;&nbsp; chat product, or batch product</p>
-    </div>
-  </section>
-
-  <!-- 08 ─ the limits ------------------------------------------- -->
-  <section class="slide light center" data-theme="light" data-label="Limits">
-    <div class="stack">
-      <h2 class="sm">What it won&rsquo;t do.</h2>
-      <ul class="limits mono">
-        <li><span>01</span> hide you from your own writing style</li>
-        <li><span>02</span> beat a global passive adversary</li>
-        <li><span>03</span> survive relay and gateway colluding</li>
-        <li><span>04</span> protect a device already compromised</li>
-        <li><span>05</span> get you around a model&rsquo;s safety policy</li>
-      </ul>
-      <p class="mono muted">stated up front, deliberately</p>
+<!-- ═══ hero ══════════════════════════════════════════════════════ -->
+<section class="hero light" data-theme="light">
+  <div class="wrap hero-grid">
+    <div class="hero-copy reveal">
+      <p class="mono link-blue">osanwë &nbsp;·&nbsp; pre-implementation</p>
+      <h1>A privacy layer<br>for AI.</h1>
+      <p class="lede">
+        Point your AI tool at Osanwë instead of straight at the provider. Your prompt still reaches
+        Claude or GPT and still gets answered — it just doesn’t arrive with your IP address
+        attached, and nobody along the way can read it.
+      </p>
       <div class="cta">
-        <a class="btn" href="https://github.com/EzraStone/osanwe-">Read the design</a>
-        <a class="btn-ghost mono" href="https://github.com/EzraStone/osanwe-">view source <span>→</span></a>
+        <a class="btn" href="#how">How it works</a>
+        <a class="btn-ghost mono" href="https://github.com/EzraStone/osanwe-">read the design <span>→</span></a>
       </div>
-      <p class="mono muted status">pre-implementation &nbsp;&middot;&nbsp; the design is public, the code is not written yet</p>
+      <p class="mono muted">no content logs &nbsp; no backdoors &nbsp; no client-side scanning</p>
     </div>
-  </section>
+
+    <div class="hero-art reveal" aria-hidden="true">
+      <svg viewBox="0 0 460 460" class="disc">
+        <defs>
+          <radialGradient id="g1" cx="46%" cy="40%" r="62%">
+            <stop offset="0%"   stop-color="#a9c6e2" stop-opacity="1"/>
+            <stop offset="45%"  stop-color="#bed4e8" stop-opacity=".9"/>
+            <stop offset="78%"  stop-color="#d7e2ec" stop-opacity=".6"/>
+            <stop offset="100%" stop-color="#eff1f1" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <circle cx="230" cy="230" r="215" fill="none" stroke="#d3dae0"/>
+        <circle cx="230" cy="230" r="176" fill="none" stroke="#ccd5dd"/>
+        <circle cx="230" cy="230" r="138" fill="none" stroke="#c3ced8"/>
+        <circle cx="230" cy="230" r="112" fill="url(#g1)"/>
+        <circle cx="230" cy="230" r="112" fill="none" stroke="#b7c6d4"/>
+        <circle cx="392" cy="286" r="5" fill="#1668c4"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ the problem ═══════════════════════════════════════════════ -->
+<section class="band light" data-theme="light" id="problem">
+  <div class="wrap">
+    <p class="eyebrow mono reveal">the problem</p>
+    <h2 class="reveal">Every AI request you send<br>carries five different ways<br>to identify you.</h2>
+    <p class="body reveal">
+      A VPN or a Tor-style relay fixes exactly one of them. That is the gap Osanwë is built around —
+      and being honest about which channels stay open is the point, not a disclaimer.
+    </p>
+
+    <div class="tablewrap reveal">
+      <table class="channels">
+        <thead>
+          <tr><th>What leaks</th><th>What actually closes it</th><th>Osanwë v1</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Your IP address and location</td>
+            <td>A relay between you and the provider</td>
+            <td class="yes">Closed</td>
+          </tr>
+          <tr>
+            <td>Your prompt, read by a middleman</td>
+            <td>End-to-end TLS the relay cannot open</td>
+            <td class="yes">Closed</td>
+          </tr>
+          <tr>
+            <td>Your API key and account</td>
+            <td>Blind-signed tokens and pooled access</td>
+            <td class="later">Phase 3</td>
+          </tr>
+          <tr>
+            <td>Your payment method</td>
+            <td>Unlinkable issuance at a separate mint</td>
+            <td class="later">Phase 3</td>
+          </tr>
+          <tr>
+            <td>Your writing style and content</td>
+            <td class="never">Nothing. No network can fix this</td>
+            <td class="never">Never</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ statement ═════════════════════════════════════════════════ -->
+<section class="statement dark grid-dots" data-theme="dark">
+  <div class="wrap center">
+    <h2 class="big reveal">Onion routing hides your IP.<br>Your API key still has<br>your name on it.</h2>
+    <p class="mono muted reveal">the hard problem is anonymous payment, not routing</p>
+  </div>
+</section>
+
+<!-- ═══ how it works ══════════════════════════════════════════════ -->
+<section class="band light" data-theme="light" id="how">
+  <div class="wrap">
+    <p class="eyebrow mono reveal">how it works</p>
+    <h2 class="reveal">Three steps, and your<br>existing tools don’t change.</h2>
+
+    <ol class="steps">
+      <li class="reveal">
+        <span class="num mono">01</span>
+        <h3>Point your tool at Osanwë</h3>
+        <p>The client speaks the same API your tools already use, so you change a base URL and
+        nothing else. Your editor, your scripts, your agent framework all keep working.</p>
+      </li>
+      <li class="reveal">
+        <span class="num mono">02</span>
+        <h3>Your request travels through a relay</h3>
+        <p>The relay is run by someone you don’t have to trust, because it carries an encrypted
+        tunnel it cannot open. It sees that a request happened and where it came from — never what
+        the request said.</p>
+      </li>
+      <li class="reveal">
+        <span class="num mono">03</span>
+        <h3>The provider answers normally</h3>
+        <p>Claude or GPT receives the request and responds exactly as it would have. The one thing
+        it no longer receives is your IP address and the location it implies.</p>
+      </li>
+    </ol>
+
+    <p class="body reveal">
+      Because the encryption runs end to end between your machine and the provider, adding a hop
+      does not add a party who can read your prompts. That is the opposite of how a normal proxy
+      works, and it is the reason relay operators here carry far less risk than Tor exit operators.
+    </p>
+  </div>
+</section>
+
+<!-- ═══ architecture ══════════════════════════════════════════════ -->
+<section class="band dark" data-theme="dark" id="architecture">
+  <div class="wrap">
+    <p class="eyebrow mono reveal">architecture</p>
+    <h2 class="reveal">Three parties. None of them<br>sees both halves.</h2>
+    <p class="body reveal">
+      Identity and content are split across separate operators so that no single one holds enough to
+      identify you. This is the same shape Apple’s Private Relay uses. It rests on those operators
+      not colluding — which we state plainly here rather than bury, because a privacy claim whose
+      assumptions are hidden is a lie with extra steps.
+    </p>
+
+    <div class="parties">
+      <article class="party reveal">
+        <svg viewBox="0 0 120 120" aria-hidden="true">
+          <circle cx="60" cy="60" r="46" fill="none" stroke="#242a30" stroke-width="7"/>
+          <circle cx="60" cy="60" r="46" fill="none" stroke="#2b82e8" stroke-width="7"
+                  stroke-linecap="round" stroke-dasharray="96 289" transform="rotate(-90 60 60)"/>
+        </svg>
+        <h3>The mint</h3>
+        <p class="mono tag">knows who paid</p>
+        <p>Sells you access and never sees a single prompt. When tokens are later spent, it cannot
+        tell which purchase they came from.</p>
+      </article>
+      <article class="party reveal">
+        <svg viewBox="0 0 120 120" aria-hidden="true">
+          <circle cx="60" cy="60" r="46" fill="none" stroke="#242a30" stroke-width="7"/>
+          <circle cx="60" cy="60" r="46" fill="none" stroke="#5f9bd8" stroke-width="7"
+                  stroke-linecap="round" stroke-dasharray="96 289" transform="rotate(30 60 60)"/>
+        </svg>
+        <h3>The relay</h3>
+        <p class="mono tag">sees your address, not your words</p>
+        <p>Forwards an encrypted tunnel it has no key for. It is the only party that learns where
+        you are, and it learns nothing else.</p>
+      </article>
+      <article class="party reveal">
+        <svg viewBox="0 0 120 120" aria-hidden="true">
+          <circle cx="60" cy="60" r="46" fill="none" stroke="#242a30" stroke-width="7"/>
+          <circle cx="60" cy="60" r="46" fill="none" stroke="#2b82e8" stroke-width="7"
+                  stroke-linecap="round" stroke-dasharray="96 289" transform="rotate(150 60 60)"/>
+        </svg>
+        <h3>The gateway</h3>
+        <p class="mono tag">sees your words, not you</p>
+        <p>Talks to the provider on your behalf. It runs inside attested secure hardware, so you can
+        verify exactly which code will handle your prompt before you send it.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ honest limits ═════════════════════════════════════════════ -->
+<section class="band light" data-theme="light" id="limits">
+  <div class="wrap">
+    <p class="eyebrow mono reveal">what you get, and what you don’t</p>
+    <h2 class="reveal">The limits are the<br>most useful thing here.</h2>
+
+    <div class="cols">
+      <div class="col reveal">
+        <h3 class="col-h yes-h">What it does</h3>
+        <ul class="ticks">
+          <li>Hides your IP address and location from the model provider</li>
+          <li>Keeps every relay operator from reading a single prompt</li>
+          <li>Stores no logs of your prompts or completions, anywhere</li>
+          <li>Works with the tools you already use, by changing one URL</li>
+        </ul>
+      </div>
+      <div class="col reveal">
+        <h3 class="col-h no-h">What it won’t do</h3>
+        <ul class="ticks no">
+          <li>Hide you from your own writing style — no network can fix that</li>
+          <li>Hide which account is paying, until the mint ships in Phase 3</li>
+          <li>Beat an adversary who can watch the entire internet at once</li>
+          <li>Survive the relay and the gateway secretly colluding</li>
+          <li>Get you around a model’s safety policy. That is deliberate</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="body reveal">
+      Osanwë provides anonymity from identity linkage. It does not provide freedom from model safety
+      policy — those are different products, and only one of them is worth building.
+    </p>
+  </div>
+</section>
+
+<!-- ═══ status ════════════════════════════════════════════════════ -->
+<section class="band dark" data-theme="dark" id="status">
+  <div class="wrap">
+    <p class="eyebrow mono reveal">status</p>
+    <h2 class="reveal">Nothing is built yet.<br>The design is public.</h2>
+    <p class="body reveal">
+      This is an architecture and a threat model, published before any code exists, so the design
+      can be argued with while it is still cheap to change. The next step is a single measurement:
+      how much latency one relay hop actually costs. That number decides whether Osanwë is an
+      interactive product or a batch one, and everything downstream waits on it.
+    </p>
+
+    <ol class="phases">
+      <li class="reveal"><span class="mono">phase 0</span><b>Measure the latency cost</b><i class="mono">tooling written, not yet run</i></li>
+      <li class="reveal"><span class="mono">phase 1</span><b>Publish design and threat model</b><i class="mono">done</i></li>
+      <li class="reveal"><span class="mono">phase 2</span><b>Client and relay, your own API key</b><i class="mono">next</i></li>
+      <li class="reveal"><span class="mono">phase 3</span><b>Token mint and attested gateway</b><i class="mono">later</i></li>
+      <li class="reveal"><span class="mono">phase 4</span><b>Open-weight models on donated hardware</b><i class="mono">later</i></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ═══ closing ═══════════════════════════════════════════════════ -->
+<section class="closing light" data-theme="light">
+  <div class="wrap center">
+    <h2 class="big reveal">Read it before<br>you believe it.</h2>
+    <p class="body center-body reveal">
+      The full design document includes the threat model, the protocol detail, the abuse policy, and
+      the two risks capable of killing the project.
+    </p>
+    <div class="cta center-cta reveal">
+      <a class="btn" href="https://github.com/EzraStone/osanwe-">Read the design</a>
+      <a class="btn-ghost mono" href="https://github.com/EzraStone/osanwe-">view source <span>→</span></a>
+    </div>
+  </div>
+</section>
 
 </main>
+
+<footer class="light">
+  <div class="wrap foot">
+    <p class="mono muted">osanwë &nbsp;·&nbsp; ósanwe-kenta: the mind may close itself against intrusion</p>
+    <p class="mono muted">pre-implementation &nbsp;·&nbsp; design published, code not written</p>
+  </div>
+</footer>
 
 <script src="assets/app.js"></script>
 </body>
