@@ -3,17 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Osanwë is experimental, accountless AI infrastructure shaped by human dignity, truthful privacy boundaries, and moral limits. Join the first ten-person technical beta.">
+<meta name="description" content="Osanwë is experimental, accountless AI infrastructure shaped by human dignity, truthful privacy boundaries, and moral limits.">
 <meta name="referrer" content="no-referrer">
-<meta name="theme-color" content="#17242d">
-<meta property="og:title" content="Osanwë — You are a person, not a profile">
-<meta property="og:description" content="Experimental, accountless AI infrastructure shaped by human dignity and honest privacy boundaries. Technical beta preparation—not a public service yet.">
+<meta name="theme-color" content="#fff3e4">
+<meta property="og:title" content="Osanwë — A prompt is a thought in transit">
+<meta property="og:description" content="Experimental, accountless AI infrastructure shaped by human dignity and honest privacy boundaries.">
 <meta property="og:image" content="https://ezrastone.github.io/osanwe-website/hero-og.png">
 <meta property="og:url" content="https://ezrastone.github.io/osanwe-website/">
 <meta property="og:type" content="website">
 <link rel="canonical" href="https://ezrastone.github.io/osanwe-website/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<title>Osanwë — You are a person, not a profile</title>
+<title>Osanwë — A prompt is a thought in transit</title>
 <style>
   @font-face{
     font-family:"Cormorant Garamond";
@@ -26,53 +26,43 @@
     font-weight:400 700; font-style:normal; font-display:swap;
   }
   :root{
-    --night:#0d2234; --paper:#f2ecdf; --paper-2:#e7dece; --ink:#183247; --muted:#5f6b70;
-    --line:#d2c6b5; --gold:#ad8540; --gold-2:#f0d390; --sea:#315a6c; --safe:#35634e;
-    --warn:#874632; --clay:#a64c3e; --white:#fffdf6;
+    --night:#16140f; --paper:#fff3e4; --paper-2:#f5e5cf; --ink:#3a270d; --muted:#6d5a42;
+    --line:#d8c6aa; --gold:#a06f24; --gold-2:#e1ad66; --sea:#7d5411; --safe:#536d54;
+    --warn:#7f4335; --clay:#8e4937; --white:#fffaf1;
     --serif:"Cormorant Garamond","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     --sans:"Lora",Georgia,"Iowan Old Style","Times New Roman",serif;
     --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{margin:0;background:var(--paper);color:var(--ink);font:15.5px/1.66 var(--sans);-webkit-font-smoothing:antialiased}
+  body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.62 var(--sans);-webkit-font-smoothing:antialiased}
   a{color:inherit}
   a:focus-visible{outline:3px solid var(--white);outline-offset:2px;box-shadow:0 0 0 6px #00566b}
   .skip{position:fixed;left:1rem;top:-5rem;z-index:20;background:var(--white);padding:.6rem .9rem;border-radius:.4rem}
   .skip:focus{top:1rem}
-  .shell{width:min(1180px,calc(100% - 2rem));margin-inline:auto}
-  .topbar{position:absolute;z-index:3;left:0;right:0;top:1rem;color:var(--ink)}
-  .nav{min-height:62px;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.45rem .55rem .45rem 1rem;border:1px solid #ffffffaa;border-radius:999px;background:#fffef9cc;box-shadow:0 18px 50px #0e294212;backdrop-filter:blur(18px)}
-  .brand{display:inline-flex;align-items:center;gap:.55rem;font:600 1.22rem var(--serif);letter-spacing:.015em;text-decoration:none}
-  .brand-mark{width:1.65rem;height:1.65rem;border-radius:.48rem}
-  .navlinks{display:flex;align-items:center;gap:1.1rem;font-size:.86rem}
+  .shell{width:min(1280px,calc(100% - 2rem));margin-inline:auto}
+  .topbar{position:relative;z-index:3;color:var(--ink);background:var(--paper);border-bottom:1px solid var(--line)}
+  .nav{min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:1.25rem;padding:.6rem 1rem;background:transparent}
+  .brand{display:inline-flex;align-items:center;font:600 1.18rem var(--serif);letter-spacing:.01em;text-decoration:none}
+  .brand-mark{display:none}
+  .navlinks{display:flex;align-items:center;gap:1.8rem;font-size:.82rem}
   .navlinks a{text-decoration:none;color:var(--ink)}
   .navlinks a:hover{text-decoration:underline;text-underline-offset:.25em}
-  .navlinks .pill{border:1px solid var(--ink);border-radius:999px;padding:.55rem .9rem;background:var(--ink);color:var(--white)}
-  .hero{position:relative;isolation:isolate;min-height:850px;display:flex;flex-direction:column;overflow:hidden;background:var(--paper)}
-  .hero::before{content:"";position:absolute;z-index:-2;width:52rem;height:52rem;right:-19rem;top:-15rem;border:1px solid #b58c4340;border-radius:50%;box-shadow:0 0 0 5rem #b58c4308,0 0 0 10rem #b58c4305}
-  .hero-inner{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(24rem,.95fr);gap:clamp(2rem,6vw,6rem);align-items:center;padding-top:7.8rem;padding-bottom:3rem}
-  .hero-copy{position:relative;z-index:1;padding:3.2rem 0}
-  .status{display:inline-flex;align-items:center;gap:.5rem;margin:0 0 1.2rem;padding:.4rem .7rem;border:1px solid #c8563247;border-radius:999px;background:#fffef982;color:var(--clay);font:700 .7rem var(--sans);letter-spacing:.11em;text-transform:uppercase}
-  .status::before{content:"";width:.46rem;height:.46rem;border-radius:50%;background:var(--clay);box-shadow:0 0 0 .2rem #c8563218}
-  h1{max-width:820px;margin:0;font:600 clamp(3.9rem,7.4vw,6.9rem)/.94 var(--serif);letter-spacing:-.028em;text-wrap:balance}
-  .hero-lede{max-width:660px;margin:1.55rem 0 0;color:var(--muted);font-size:clamp(1rem,1.8vw,1.22rem);line-height:1.58;text-wrap:pretty}
+  .navlinks .pill{border:1px solid var(--gold);border-radius:4px;padding:.55rem .9rem;color:var(--gold)}
+  .hero{position:relative;overflow:hidden;background:var(--paper);padding-top:0}
+  .hero-plate{position:relative;height:clamp(31rem,55vw,43rem);overflow:hidden;border-inline:1px solid var(--line)}
+  .hero-plate::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#2b1c0cdb 0%,#2b1c0ca0 36%,#2b1c0c12 72%)}
+  .hero-art{width:100%;height:100%;object-fit:cover;object-position:center 46%;filter:grayscale(1) sepia(.95) saturate(1.75) hue-rotate(-12deg) contrast(1.04)}
+  .hero-copy{position:absolute;z-index:1;left:clamp(2rem,5vw,4.5rem);bottom:clamp(2.7rem,6vw,5.2rem);max-width:700px;color:var(--white)}
+  .status{margin:0 0 1.2rem;color:var(--gold-2);font:700 .7rem var(--sans);letter-spacing:.13em;text-transform:uppercase}
+  h1{max-width:820px;margin:0;font:500 clamp(3.7rem,7vw,6.4rem)/.96 var(--serif);letter-spacing:-.018em;text-wrap:balance}
+  .hero-lede{max-width:650px;margin:1.2rem 0 0;color:#fff3e4e8;font-size:clamp(1rem,1.8vw,1.2rem);line-height:1.58;text-wrap:pretty}
   .actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.8rem}
-  .button{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:.68rem 1rem;border:1px solid transparent;border-radius:999px;text-decoration:none;font-weight:700;font-size:.9rem}
-  .button.primary{background:var(--ink);color:var(--white)}
-  .button.secondary{border-color:#9ba4a8;color:var(--ink);background:#fffef96b}
+  .button{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:.62rem 1rem;border:1px solid transparent;border-radius:4px;text-decoration:none;font:600 .88rem var(--serif)}
+  .button.primary{border-color:var(--gold);background:transparent;color:var(--gold)}
+  .button.secondary{border-color:var(--line);color:var(--ink);background:transparent}
   .button:hover{transform:translateY(-1px)}
-  .hero-note{max-width:650px;margin:1rem 0 0;color:var(--muted);font-size:.78rem}
-  .hero-visual{position:relative;min-height:650px;display:grid;align-items:end}
-  .harbor-window{position:absolute;inset:0 1.5rem 0 0;overflow:hidden;border:1px solid #ffffff9c;border-radius:18rem 18rem 1.8rem 1.8rem;background:var(--night);box-shadow:0 35px 90px #0e29422e}
-  .hero-art{width:100%;height:100%;object-fit:cover;object-position:56% center;filter:saturate(.85) contrast(1.05)}
-  .harbor-window::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#0b1d2b0d 35%,#0b1d2baa 100%)}
-  .thought-card{position:relative;z-index:1;margin:0 0 1.4rem -2.5rem;padding:1rem 1rem 1rem 1.2rem;border:1px solid #ffffff99;border-radius:1.15rem;background:#fffef9ed;box-shadow:0 20px 55px #0b1d2b3b;backdrop-filter:blur(16px)}
-  .thought-card small{display:block;margin-bottom:.2rem;color:var(--clay);font:700 .67rem var(--sans);letter-spacing:.11em;text-transform:uppercase}
-  .thought-line{display:flex;align-items:center;justify-content:space-between;gap:1rem;color:var(--ink);font:500 1.04rem var(--serif)}
-  .thought-arrow{display:grid;width:2.15rem;height:2.15rem;flex:0 0 auto;place-items:center;border-radius:50%;background:var(--ink);color:var(--white);font-family:var(--sans)}
-  .trust-rail{display:flex;flex-wrap:wrap;gap:.55rem;padding-bottom:2rem}
-  .trust-rail span{padding:.42rem .68rem;border:1px solid var(--line);border-radius:999px;background:#fffef98c;color:var(--muted);font-size:.72rem}
+  .hero-note{max-width:620px;margin:0 0 0 auto;color:var(--muted);font-size:.78rem;text-align:right}
   main section{padding:5.6rem 0}
   main .hero{padding:0}
   .eyebrow{margin:0 0 .55rem;color:var(--sea);font:750 .72rem var(--sans);letter-spacing:.13em;text-transform:uppercase}
@@ -217,13 +207,147 @@
   footer nav{display:flex;flex-wrap:wrap;gap:1rem;font-size:.8rem}
   footer a{color:var(--gold-2)}
   @media(max-width:780px){
-    .navlinks{gap:.55rem}.navlinks a{font-size:.74rem}.navlinks a[href="#principles"],.navlinks a[href="#experience"]{display:none}.navlinks .pill{padding:.48rem .68rem}.hero{min-height:auto}.hero-inner{grid-template-columns:1fr;padding-top:7rem}.hero-copy{padding-bottom:0}.hero-visual{min-height:540px}.thought-card{margin-left:1rem}.harbor-window{right:0}
+    .navlinks{gap:.65rem}.navlinks a{font-size:.74rem}.navlinks a[href="#principles"],.navlinks a[href="#experience"]{display:none}.navlinks .pill{padding:.48rem .68rem}.hero-plate{height:36rem}.hero-copy{left:1.5rem;right:1.5rem;bottom:2.2rem}.hero-note{margin:0;text-align:left}
     .truth-grid,.truth-head,.boundary,.candidate,.download-card,.principles-head,.product-head,.beta-head{grid-template-columns:1fr}.path,.principle-grid{grid-template-columns:1fr 1fr}
     .product-head{gap:1rem}.interface{grid-template-columns:1fr;min-height:auto}.app-rail{display:grid;grid-template-columns:repeat(4,1fr);gap:.35rem;border-right:0;border-bottom:1px solid #ffffff14}.app-brand,.mode-label,.rail-spacer,.connection{display:none}.mode{justify-content:center;padding:.55rem .3rem}.mode::before{display:none}.app-workspace{grid-template-columns:1fr}.conversation{border-right:0;border-bottom:1px solid #ffffff14}.runner{min-height:480px}
     .facts div{grid-template-columns:1fr;gap:.3rem}
     .path li:not(:last-child)::after{display:none}.path-caveat{grid-template-columns:1fr}.roles{grid-template-columns:repeat(2,1fr)}.footer-grid{display:grid}
   }
-  @media(max-width:470px){.path,.principle-grid{grid-template-columns:1fr}h1{font-size:3.45rem}.shell{width:min(100% - 1.3rem,1180px)}.nav{gap:.35rem;padding-left:.55rem;padding-right:.35rem}.brand{font-size:1.05rem}.brand-mark{width:1.4rem;height:1.4rem}.navlinks{gap:.3rem}.navlinks a{font-size:.67rem}.navlinks .pill{padding:.42rem .52rem}.hero-visual{min-height:460px}.thought-card{margin-left:.55rem}.trust-rail{padding-bottom:1.2rem}.interface{border-radius:1.3rem}.app-rail{grid-template-columns:repeat(4,1fr)}.mode{padding:.5rem .15rem;font-size:.67rem}.soon-tag{padding:.08rem .18rem;font-size:.43rem}.conversation{padding:1rem}.messages{padding:1.4rem 0}.runner{min-height:420px}.preview{padding:1rem}.preview-art{height:150px}.roles{grid-template-columns:1fr}.roles li{min-height:125px}.truth-card{min-height:auto}.truth-label{margin-bottom:2.2rem}.closing{padding:5.8rem 0}}
+  @media(max-width:470px){.path,.principle-grid{grid-template-columns:1fr}h1{font-size:3.3rem}.shell{width:min(100% - 1.1rem,1280px)}.nav{gap:.35rem;padding-left:.35rem;padding-right:.35rem}.brand{font-size:1.05rem}.navlinks{gap:.3rem}.navlinks a{font-size:.67rem}.navlinks .pill{padding:.42rem .52rem}.hero-plate{height:34rem}.hero-copy{left:1.1rem;right:1.1rem}.interface{border-radius:1.3rem}.app-rail{grid-template-columns:repeat(4,1fr)}.mode{padding:.5rem .15rem;font-size:.67rem}.soon-tag{padding:.08rem .18rem;font-size:.43rem}.conversation{padding:1rem}.messages{padding:1.4rem 0}.runner{min-height:420px}.preview{padding:1rem}.preview-art{height:150px}.roles{grid-template-columns:1fr}.roles li{min-height:125px}.truth-card{min-height:auto}.truth-label{margin-bottom:2.2rem}.closing{padding:5.8rem 0}}
+
+  /* Mockup 1a: one classical system of cream paper, brown ink, gold strokes,
+     square corners, and hairlines carrying the hierarchy. */
+  main section{padding:4.8rem 0;border-bottom:1px solid var(--line)}
+  .eyebrow{color:var(--gold);font-size:.68rem}
+  h2{font-size:clamp(2.2rem,4.8vw,4rem);letter-spacing:-.018em}
+  .section-lede{font-size:1rem;line-height:1.7}
+  .principles,.product,.truth,.privacy-section,.beta,.evidence{background:var(--paper)}
+  .principles-head,.product-head,.truth-head,.beta-head{align-items:start}
+  .principle-grid{grid-template-columns:repeat(3,1fr);margin-top:2.5rem;background:transparent}
+  .principle{min-height:205px;background:transparent}
+  .principle b{margin-bottom:2.7rem;color:var(--gold)}
+  .principle h3{font-size:1.08rem}
+  .product::before,.interface::after,.beta::after,.closing::before,.truth-card::after{display:none}
+  .interface{min-height:570px;border-color:var(--line);border-radius:0;background:var(--paper);color:var(--ink);box-shadow:none}
+  .app-rail{border-color:var(--line);background:var(--paper-2)}
+  .app-brand{color:var(--ink)}
+  .app-brand img{display:none}
+  .mode-label,.connection,.window-bar,.runner-foot{color:var(--muted)}
+  .mode{border-radius:3px;color:var(--muted)}
+  .mode::before{border-radius:0}
+  .mode.active{outline:1px solid var(--gold);background:transparent;color:var(--gold)}
+  .mode.active::before{border-color:var(--gold);background:var(--gold)}
+  .mode.soon{color:var(--muted)}
+  .soon-tag,.connection,.local-pill{border-color:var(--line)}
+  .connection b,.window-bar strong{color:var(--ink)}
+  .conversation{border-color:var(--line)}
+  .message{border-radius:4px;color:var(--ink)}
+  .message small{color:var(--gold)}
+  .message.person{border-color:var(--line);background:var(--paper-2)}
+  .message.assistant{border:0;background:transparent}
+  .composer{border-color:var(--line);border-radius:4px;background:var(--white);color:var(--muted)}
+  .send-dot{border-radius:50%;background:var(--gold);color:var(--white)}
+  .runner{background:var(--paper)}
+  .runner-tabs,.runner-foot{border-color:var(--line)}
+  .runner-tabs{color:var(--muted)}
+  .runner-tabs b{border-color:var(--gold);color:var(--ink)}
+  .runner-state{color:var(--gold)}
+  .preview{background:var(--paper-2)}
+  .preview-card{border-color:var(--line);border-radius:4px;background:var(--white);box-shadow:none}
+  .preview-art{background:linear-gradient(145deg,#3a270d,#7d5411 55%,#e1ad66)}
+  .participant-table{width:100%;margin-top:2.5rem;border-collapse:collapse;font-size:.88rem}
+  .participant-table th{text-align:left;padding:.7rem .8rem;border-block:1px solid var(--line);color:var(--gold);font:.68rem var(--sans);letter-spacing:.1em;text-transform:uppercase}
+  .participant-table td{padding:1rem .8rem;border-bottom:1px solid var(--line);vertical-align:top}
+  .participant-table td:first-child{font:600 1rem var(--serif)}
+  .claims-grid{display:grid;grid-template-columns:1fr 1fr;margin-top:2.5rem;border:1px solid var(--line)}
+  .claim{padding:1.6rem 1.8rem}
+  .claim+ .claim{border-left:1px solid var(--line)}
+  .claim h3{margin:0 0 1rem;color:var(--gold);font:.7rem var(--sans);letter-spacing:.12em;text-transform:uppercase}
+  .claim ul{margin:0;padding:0}
+  .claim li{list-style:none;margin:.8rem 0;padding-top:.8rem;border-top:1px solid var(--line);font-size:.88rem}
+  .launch-note{display:grid;grid-template-columns:auto 1fr;gap:2rem;margin:2rem 0 0;padding:1.2rem 0;border-block:1px solid var(--line)}
+  .launch-note strong{color:var(--gold);font:.72rem var(--sans);letter-spacing:.1em;text-transform:uppercase}
+  .launch-note p{margin:0;color:var(--muted);font-size:.86rem}
+  .path-section{background:var(--paper);color:var(--ink)}
+  .path-section::before{display:none}
+  .path-section .eyebrow{color:var(--gold)}
+  .path-section .section-lede{color:var(--muted)}
+  .path{gap:0;border:1px solid var(--line)}
+  .path li{min-height:230px;border:0;border-right:1px solid var(--line);border-radius:0;background:transparent}
+  .path li:last-child{border-right:0}
+  .path li::before{margin-bottom:3rem;color:var(--gold)}
+  .path li:not(:last-child)::after{display:none}
+  .path li p{color:var(--muted)}
+  .path-caveat{border:0;border-block:1px solid var(--line);border-radius:0;background:transparent}
+  .path-caveat strong{color:var(--gold)}
+  .path-caveat p{color:var(--muted)}
+  .facts{gap:0;border-top:1px solid var(--line)}
+  .facts div{padding:1rem 0;border:0;border-bottom:1px solid var(--line);border-radius:0;background:transparent}
+  .facts dt{color:var(--gold)}
+  .interior-note{font-size:1.55rem}
+  .roles{gap:0;border-top:1px solid var(--line);border-left:1px solid var(--line)}
+  .roles li{min-height:150px;border-radius:0;background:transparent}
+  .roles b{color:var(--gold)}
+  .candidate{gap:0;border:1px solid var(--line)}
+  .candidate article{min-height:245px;border:0;border-radius:0;background:transparent}
+  .candidate article+article{border-left:1px solid var(--line)}
+  .metric{color:var(--gold)}
+  .download-card{border-radius:0;background:var(--night);box-shadow:none}
+  .download-card .section-lede,.checklist li{color:#cfc4b2}
+  .download-card .primary{border-color:var(--gold-2);background:transparent;color:var(--gold-2)}
+  .closing{padding:6.5rem 0;background:var(--paper)}
+  footer{background:var(--night);color:#cfc4b2}
+  @media(max-width:780px){
+    .principle-grid{grid-template-columns:1fr 1fr}
+    .claims-grid,.launch-note{grid-template-columns:1fr}
+    .claim+.claim{border-left:0;border-top:1px solid var(--line)}
+    .path{grid-template-columns:1fr 1fr}
+    .path li{border-bottom:1px solid var(--line)}
+    .candidate article+article{border-left:0;border-top:1px solid var(--line)}
+  }
+  @media(max-width:470px){.principle-grid,.path{grid-template-columns:1fr}.participant-table{display:block;overflow-x:auto}.path li{border-right:0}}
+  /* The plate is the complete first page: no frame and no navigation band
+     competing with the proposition. The supporting material begins below. */
+  .topbar{display:none}
+  .hero-plate.shell{width:100%;height:100svh;min-height:42rem;margin:0;border:0}
+  .hero-copy{left:clamp(2rem,5.7vw,4.6rem);bottom:clamp(3.5rem,10vh,6.8rem)}
+  .client-preview{position:relative;min-height:640px;margin:2.7rem 0 0;overflow:hidden;border:1px solid var(--line);background:var(--paper);box-shadow:0 28px 70px #3a270d12}
+  .client-chrome{display:flex;min-height:4rem;align-items:center;gap:1.25rem;padding:.65rem 1.45rem;border-bottom:1px solid var(--line)}
+  .client-wordmark{font:600 1.35rem var(--serif)}
+  .client-modes,.client-actions{display:flex;align-items:center;gap:.35rem;font-size:.76rem}
+  .client-modes span,.client-actions span{padding:.38rem .65rem;border:1px solid transparent;border-radius:3px;color:var(--muted)}
+  .client-modes .selected{border-color:var(--gold);color:var(--gold)}
+  .client-modes .unavailable{opacity:.55}
+  .client-modes small{margin-left:.18rem;font-size:.48rem;letter-spacing:.08em;text-transform:uppercase}
+  .client-actions{margin-left:auto}
+  .client-actions .control{border-color:var(--line);color:var(--ink)}
+  .client-chat{position:relative;display:flex;min-height:576px;flex-direction:column;padding:2rem 1.5rem 1.15rem}
+  .client-opening{position:absolute;left:50%;top:47%;width:min(90%,48rem);transform:translate(-50%,-50%);text-align:center}
+  .client-opening .kicker{margin:0 0 .65rem;color:var(--gold);font:.64rem var(--sans);font-weight:700;letter-spacing:.13em;text-transform:uppercase}
+  .client-opening h3{position:relative;z-index:1;margin:0 0 .65rem;font:500 clamp(2.7rem,5vw,4.1rem)/1 var(--serif);letter-spacing:-.018em}
+  .client-opening p:not(.kicker){position:relative;z-index:1;max-width:43ch;margin:0 auto;color:var(--muted);font-size:.82rem}
+  .client-ghost{position:absolute;right:1rem;bottom:-3.3rem;color:var(--gold);font:600 14rem/.8 var(--serif);opacity:.07}
+  .client-compose{width:min(100%,48rem);margin:auto auto 0}
+  .client-prompt{display:flex;align-items:center;gap:.75rem;padding:.7rem .75rem .7rem 1rem;border:1px solid var(--line);border-radius:4px;background:var(--white);color:var(--muted);box-shadow:0 8px 24px #3a270d0d}
+  .client-prompt>span:first-of-type{margin-left:auto}
+  .client-seal{display:grid;width:2rem;height:2rem;place-items:center;color:var(--gold);font-size:1.1rem}
+  .client-send{display:grid;width:2.15rem;height:2.15rem;place-items:center;border-radius:3px;background:var(--gold);color:var(--white)}
+  .client-meta{display:flex;justify-content:space-between;gap:1rem;padding:.55rem .2rem 0;color:var(--muted);font-size:.7rem}
+  .client-caption{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin:.85rem 0 0;color:var(--muted);font-size:.76rem}
+  .client-caption p{margin:0}
+  .client-launch{display:inline-flex;flex:0 0 auto;align-items:center;min-height:38px;padding:.5rem .8rem;border:1px solid var(--gold);border-radius:3px;color:var(--gold);font-weight:650;text-decoration:none}
+  @media(max-width:780px){
+    .client-preview{min-height:590px}
+    .client-chrome{gap:.45rem;padding:.55rem .7rem}
+    .client-actions .settings-label,.client-actions .new-label{display:none}
+    .client-modes span,.client-actions span{padding:.34rem .45rem}
+    .client-chat{min-height:526px;padding-inline:.8rem}
+    .client-opening{top:43%}
+    .client-opening h3{font-size:clamp(2.15rem,10vw,3rem)}
+    .client-ghost{right:0;font-size:10rem}
+    .client-caption{align-items:flex-start;flex-direction:column}
+  }
+  @media(max-width:470px){.hero-plate.shell{height:100svh;min-height:36rem}.hero-copy{bottom:3.2rem}}
   @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.button:hover{transform:none}}
 </style>
 </head>
@@ -234,59 +358,40 @@
   <div class="nav shell">
     <a class="brand" href="./" aria-label="Osanwë home"><img class="brand-mark" src="favicon.svg" alt="">Osanwë</a>
     <nav class="navlinks" aria-label="Primary">
-      <a href="#principles">Why Osanwë</a>
-      <a href="#experience">Experience</a>
-      <a href="#truth">Status</a>
-      <a href="https://github.com/EzraStone/Osanwe" rel="noreferrer">Source</a>
-      <a class="pill" href="https://github.com/EzraStone/Osanwe/issues/new?template=beta-interest.yml" rel="noreferrer">Join the beta</a>
+      <a href="#experience">How it works</a>
+      <a href="#truth">Who runs what</a>
+      <a href="#boundary-title">Boundaries</a>
+      <a href="https://github.com/EzraStone/Osanwe/blob/main/docs/beta.md" rel="noreferrer">Beta charter</a>
+      <a class="pill" href="https://github.com/EzraStone/Osanwe/issues/new?template=beta-interest.yml" rel="noreferrer">Request an invite</a>
     </nav>
   </div>
 </header>
 
 <main id="main">
   <section class="hero" aria-labelledby="hero-title">
-    <div class="hero-inner shell">
+    <div class="hero-plate shell">
+      <img class="hero-art" src="plate.png" alt="">
       <div class="hero-copy">
-        <p class="status">Free ten-person technical beta · pre-launch</p>
-        <h1 id="hero-title">You are a person, not a profile.</h1>
-        <p class="hero-lede">Osanwë is an accountless local client and experimental privacy
-        infrastructure for AI—designed to separate who is asking from what is being asked. Its
-        Catholic inspiration begins with human dignity and moral limits, and welcomes people of
-        every faith or none.</p>
-        <div class="actions">
-          <a class="button primary" href="https://github.com/EzraStone/Osanwe/issues/new?template=beta-interest.yml" rel="noreferrer">Join the first ten</a>
-          <a class="button secondary" href="#truth">See the honest status</a>
-        </div>
-        <p class="hero-note">Applying requires GitHub sign-in and creates a public issue linked to your
-        GitHub username. The beta is free, invited, text-only, and limited to non-sensitive prompts.
-        This is not yet a public gateway, a production privacy promise, or a real-money service.</p>
+        <p class="status">An encrypted relay for AI inference</p>
+        <h1 id="hero-title">A prompt is a thought in transit.</h1>
+        <p class="hero-lede">Humans deserve to maintain their dignity when using our greatest invention.</p>
       </div>
-      <div class="hero-visual" aria-hidden="true">
-        <div class="harbor-window"><img class="hero-art" src="hero.png" alt=""></div>
-        <div class="thought-card">
-          <small>A thought in transit</small>
-          <div class="thought-line"><span>A private question should not become a permanent identity.</span><span class="thought-arrow">↗</span></div>
-        </div>
-      </div>
-    </div>
-    <div class="trust-rail shell" aria-label="Osanwë principles">
-      <span>No Osanwë chat account</span><span>Ephemeral by default</span><span>Known and unknown provider policy shown</span><span>Provider safety policies still apply</span>
     </div>
   </section>
 
   <section class="principles" id="principles" aria-labelledby="principles-title">
     <div class="shell">
       <div class="principles-head">
-        <div><p class="eyebrow">Catholic in inspiration · open to everyone</p><h2 id="principles-title">Technology should serve the human person.</h2></div>
-        <p class="section-lede">Osanwë begins with human dignity and freedom. That conviction sets
-        both its privacy ambition and its moral limits; it is an invitation to people of every faith
-        or none, never a claim of institutional endorsement.</p>
+        <div><p class="eyebrow">Catholic in inspiration · open to everyone</p><h2 id="principles-title">Technology should serve the human first.</h2></div>
+        <p class="section-lede">You are a person, not a profile. Osanwë’s Catholic inspiration begins with human dignity, freedom, moral limits, and stewardship. It welcomes people of every faith or none and claims no institutional endorsement.</p>
       </div>
       <div class="principle-grid">
-        <article class="principle"><b>I</b><h3>Dignity before data</h3><p>A question should not require becoming an account, a profile, or an advertising subject.</p></article>
-        <article class="principle"><b>II</b><h3>Truth before reassurance</h3><p>Every participant still learns something. Osanwë names those boundaries instead of hiding them behind a score.</p></article>
-        <article class="principle"><b>III</b><h3>Freedom with responsibility</h3><p>Privacy does not mean bypassing model safety. Human freedom and moral limits belong together.</p></article>
-        <article class="principle"><b>IV</b><h3>Stewardship over extraction</h3><p>Reliability and careful security work come before growth, fundraising, or feature breadth.</p></article>
+        <article class="principle"><b>01</b><h3>No conventional user account</h3><p>A question should not require becoming an account, a profile, or an advertising subject.</p></article>
+        <article class="principle"><b>02</b><h3>No server-side conversation history</h3><p>History is ephemeral unless a person deliberately saves it in the local browser profile.</p></article>
+        <article class="principle"><b>03</b><h3>No behavioral profile</h3><p>Prompt-based advertising, telemetry, and behavioral targeting have no place in this client.</p></article>
+        <article class="principle"><b>04</b><h3>Payment and inference separated</h3><p>Where the payment rail permits it, blind issuance keeps buying access apart from spending it.</p></article>
+        <article class="principle"><b>05</b><h3>One place for the truth</h3><p>The interface states what each participant can learn instead of hiding uncertainty behind a score.</p></article>
+        <article class="principle"><b>06</b><h3>Provider choice without pretense</h3><p>Provider retention, training, identity, and expiry remain explicit facts—including when the answer is unknown.</p></article>
       </div>
     </div>
   </section>
@@ -303,46 +408,35 @@
           interactive HTML stays locked unless the browser can enforce its network boundary.
           Connections live in Settings, and Cowork stays visibly unavailable until its privacy
           boundary is ready.</p>
-          <p class="interface-note"><span>Static product illustration—the public website never
-          receives prompts or keys. Interactive HTML requires Chromium 152+ and fails closed
-          elsewhere. <a href="https://github.com/EzraStone/Osanwe/blob/main/docs/product/code-runner.md" rel="noreferrer">Read the runner limits →</a></span></p>
+          <p class="interface-note"><span>Real local client interface, reproduced from the shipped
+          Chat surface. This public website never receives prompts or keys. Interactive HTML requires
+          Chromium 152+ in Code and fails closed elsewhere.
+          <a href="https://github.com/EzraStone/Osanwe/blob/main/docs/product/code-runner.md" rel="noreferrer">Read the runner limits →</a></span></p>
         </div>
       </div>
 
-      <div class="interface" role="img" aria-label="Static illustration of the Osanwë local application showing Chat, Code with a network-blocked local preview, Settings, and Cowork marked unavailable">
-        <div class="app-rail">
-          <div class="app-brand"><img src="favicon.svg" alt="">Osanwë</div>
-          <p class="mode-label">Modes</p>
-          <div class="mode">Chat</div>
-          <div class="mode active">Code</div>
-          <div class="mode soon">Cowork <span class="soon-tag">Soon</span></div>
-          <div class="rail-spacer"></div>
-          <p class="mode-label">Control</p>
-          <div class="mode settings">Settings</div>
-          <div class="connection"><b>Connected locally</b>Provider details remain visible at runtime</div>
+      <figure class="client-preview" role="img" aria-label="The real Osanwë local Chat interface, shown without accepting input on the public website">
+        <div class="client-chrome">
+          <span class="client-wordmark">Osanwë</span>
+          <div class="client-modes" aria-hidden="true"><span class="selected">Chat</span><span>Code</span><span class="unavailable">Cowork <small>Soon</small></span></div>
+          <div class="client-actions" aria-hidden="true"><span class="control">☾</span><span class="settings-label">Settings</span><span class="control new-label">New</span></div>
         </div>
-
-        <div class="app-workspace">
-          <div class="conversation">
-            <div class="window-bar"><strong>Code conversation</strong><span class="local-pill">Ephemeral</span></div>
-            <div class="messages">
-              <div class="message person"><small>You</small>Create a quiet landing card inspired by a harbor at night.</div>
-              <div class="message assistant"><small>Osanwë</small>I made a self-contained HTML, CSS, and JavaScript preview. Review the code, then run it explicitly when you are ready.</div>
-            </div>
-            <div class="composer"><span>Continue the conversation…</span><span class="send-dot">↑</span></div>
+        <div class="client-chat">
+          <div class="client-opening">
+            <p class="kicker">Private chat</p>
+            <h3>What are you thinking about?</h3>
+            <p>Nothing here is kept, and nothing leaves this device unsealed.</p>
+            <span class="client-ghost" aria-hidden="true">Ó</span>
           </div>
-
-          <div class="runner">
-            <div class="runner-tabs"><b>Display</b><span>Code</span><span>Console</span><span class="runner-state">Network blocked</span></div>
-            <div class="preview">
-              <div class="preview-card">
-                <div class="preview-art"></div>
-                <div class="preview-copy"><small>Rendered locally</small><strong>A place for thoughts in transit.</strong><p>Self-contained preview · no remote assets requested</p></div>
-              </div>
-            </div>
-            <div class="runner-foot"><span>Opaque sandbox</span><span>Explicit run only</span><span>Disposable frame</span></div>
+          <div class="client-compose" aria-hidden="true">
+            <div class="client-prompt">Ask anything <span class="client-seal">◉</span><span class="client-send">↑</span></div>
+            <div class="client-meta"><span>Choose a model⌄</span><span>Ephemeral &nbsp; Sealed</span></div>
           </div>
         </div>
+      </figure>
+      <div class="client-caption">
+        <p>The interface above is the actual Chat design, presented without a prompt field. Launching below opens the working client on this device when Osanwë is installed and running.</p>
+        <a class="client-launch" href="http://127.0.0.1:8080/_osanwe/" target="_blank" rel="noreferrer">Open installed Osanwë</a>
       </div>
     </div>
   </section>
@@ -350,35 +444,32 @@
   <section class="truth" id="truth" aria-labelledby="truth-title">
     <div class="shell">
       <div class="truth-head">
-        <div><p class="eyebrow">The honest status</p><h2 id="truth-title">Working software. Open launch gates.</h2></div>
-        <p class="section-lede">The software path exists. The social, provider, deployment, and
-        independent-review assumptions that make it a trustworthy public service do not all exist yet.</p>
+        <div><p class="eyebrow">Who can learn what</p><h2 id="truth-title">There is no single participant called “the service.”</h2></div>
+        <p class="section-lede">Each role receives different information. The design matters only when relay and gateway are actually operated separately, and even then timing, collusion, and identifying prompt content remain.</p>
       </div>
-      <div class="truth-grid">
-        <article class="truth-card ready">
-          <span class="truth-label">Built now</span>
-          <h3>Working and tested</h3>
-          <ul>
-            <li>Loopback-only local web app with streaming chat and model disclosures</li>
-            <li>Encrypted, pinned relay with a default-deny destination allowlist</li>
-            <li>Blind-signed single-use request tokens and durable replay protection on Linux</li>
-            <li>Aggregate request, input, output, and optional cost ceilings</li>
-            <li>Client binaries cross-compile for Windows, Linux, and macOS; launcher syntax is checked</li>
-          </ul>
-        </article>
-        <article class="truth-card blocked">
-          <span class="truth-label">Gate remains</span>
-          <h3>Still blocking public use</h3>
-          <ul>
-            <li>No independently operated public relay is enrolled</li>
-            <li>The gateway can read prompts; attested execution is not built</li>
-            <li><a href="https://github.com/EzraStone/Osanwe/blob/main/docs/beta-invites.md" rel="noreferrer">Per-invite fairness has no client wallet yet</a></li>
-            <li>The payment path has no independent security review</li>
-            <li>Ox Alpha integration permission and conflicting data-use language are unresolved</li>
-            <li>Clean native installs and OS warning paths have not passed all three platform smoke tests</li>
-          </ul>
-        </article>
+      <table class="participant-table">
+        <thead><tr><th scope="col">Participant</th><th scope="col">What it sees</th><th scope="col">What is kept</th></tr></thead>
+        <tbody>
+          <tr><td>Local client</td><td>Your request, because your own application sends it there</td><td>Counters and connection state; no server-side conversation log</td></tr>
+          <tr><td>Relay</td><td>Your network address and encrypted flow—ciphertext, not prompt text</td><td>No protocol decryption key for the request</td></tr>
+          <tr><td>Gateway</td><td>Prompt and answer text; attaches its provider credential</td><td>Not your source network address</td></tr>
+          <tr><td>Model provider</td><td>Prompt, answer, and timing; your account in bring-your-own-key mode</td><td>Unknown unless a dated provider policy is shown</td></tr>
+          <tr><td>Mint</td><td>That an entitlement was redeemed; signs it blindly</td><td>Not the credential later shown to the gateway</td></tr>
+        </tbody>
+      </table>
+      <div class="claims-grid">
+        <article class="claim"><h3>What we can say today</h3><ul>
+          <li>A correctly configured and pinned relay receives end-to-end ciphertext and has no protocol decryption key for the request.</li>
+          <li>Blind-signed tokens cannot be directly cryptographically matched to their blinded issuance transcript.</li>
+          <li>The local process exposes no server-side conversation-history endpoint.</li>
+        </ul></article>
+        <article class="claim"><h3>What we cannot say today</h3><ul>
+          <li>That the gateway operator is technically unable to read prompts.</li>
+          <li>That writing style or prompt content cannot identify a person.</li>
+          <li>That every provider deletes or declines to train on prompts.</li>
+        </ul></article>
       </div>
+      <div class="launch-note"><strong>Current status</strong><p>The client, pinned relay, blind-token gateway, durable replay protection, aggregate limits, Windows installer, and cross-platform archives are built and tested. Public use remains gated by an independently operated relay, complete per-invite wallet, provider permission, platform validation, and independent review of the payment path.</p></div>
     </div>
   </section>
 
@@ -426,81 +517,6 @@
     </div>
   </section>
 
-  <section class="beta" id="beta" aria-labelledby="beta-title">
-    <div class="shell">
-      <div class="beta-head">
-        <div><p class="eyebrow">The first ten people</p><h2 id="beta-title">A test cohort, not an audience.</h2></div>
-        <p class="section-lede">The best first testers cover distinct failure surfaces. Fame and follower
-        count do not matter; clear feedback, fast response, and willingness to use synthetic prompts do.</p>
-      </div>
-      <ol class="roles">
-        <li><b>01</b><span>Independent relay operator</span></li><li><b>02</b><span>Application-security engineer</span></li>
-        <li><b>03</b><span>Privacy or cryptography reviewer</span></li><li><b>04</b><span>Heavy AI coding-tool user</span></li>
-        <li><b>05</b><span>Nontechnical Windows user</span></li><li><b>06</b><span>macOS user</span></li>
-        <li><b>07</b><span>Linux developer</span></li><li><b>08</b><span>Keyboard-only or screen-reader user</span></li>
-        <li><b>09</b><span>Reliability or DevOps operator</span></li><li><b>10</b><span>Privacy-conscious product tester</span></li>
-      </ol>
-      <div class="beta-actions">
-        <a class="button primary" href="https://github.com/EzraStone/Osanwe/issues/new?template=beta-interest.yml" rel="noreferrer">Apply on GitHub</a>
-        <a class="quiet-link" href="https://github.com/EzraStone/Osanwe/blob/main/docs/beta.md" rel="noreferrer">Read the complete beta charter →</a>
-      </div>
-      <p class="cta-note">GitHub sign-in is required. Submitting the form creates a public issue linked
-      to your GitHub username; do not include private contact details, prompts, or answers.</p>
-    </div>
-  </section>
-
-  <section class="evidence" aria-labelledby="evidence-title">
-    <div class="shell">
-      <p class="eyebrow">Evidence before positioning</p>
-      <h2 id="evidence-title">Phase 0 currently points toward async work.</h2>
-      <div class="candidate">
-        <article>
-          <h3>Measured route</h3>
-          <span class="metric">+448 ms</span>
-          <p>Provisional p95 time-to-first-token overhead from a Chicago-area client through a
-          <code>us-west1-b</code> relay. That exceeds the project's 400 ms chat-failure boundary. Two
-          independent regions remain, so this is a provisional verdict—not a universal latency claim.</p>
-        </article>
-        <article>
-          <h3>Ox Alpha candidate</h3>
-          <span class="metric">Disabled</span>
-          <p>The route is technically compatible, free at the time checked, and temporary. It remains
-          internal-only while OpenRouter clarifies integration permission, retention, training,
-          lifecycle, and required tester language in writing.</p>
-        </article>
-      </div>
-      <div class="beta-actions">
-        <a class="quiet-link" href="https://github.com/EzraStone/Osanwe/blob/main/docs/phase0-results.md" rel="noreferrer">Read Phase 0 results →</a>
-        <a class="quiet-link" href="https://github.com/EzraStone/Osanwe/blob/main/docs/providers/ox-alpha.md" rel="noreferrer">Read the Ox Alpha gate →</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="download" aria-labelledby="download-title">
-    <div class="shell download-card">
-      <div>
-        <p class="eyebrow">Website, not web chat</p>
-        <h2 id="download-title">Download locally. Keep the public page out of the conversation.</h2>
-        <p class="section-lede">The website explains, recruits, and will publish checksummed archives.
-        The chat stays on <code>127.0.0.1</code>; this site has no prompt box, analytics, Osanwë account
-        system, key field, or access to local history. The separate beta application uses a public
-        GitHub account. Invited testers receive a non-secret connection file and paste secrets only
-        into the local launcher.</p>
-        <div class="beta-actions">
-          <a class="button primary" href="https://github.com/EzraStone/Osanwe/releases" rel="noreferrer">Check releases</a>
-          <a class="quiet-link" href="https://github.com/EzraStone/Osanwe/blob/main/docs/joining.md" rel="noreferrer">Technical setup →</a>
-        </div>
-      </div>
-      <ul class="checklist" aria-label="Download gates">
-        <li><strong>Not yet:</strong> published Windows, macOS, and Linux client archives</li>
-        <li><strong>Not yet:</strong> published SHA-256 checksums and embedded version identity</li>
-        <li><strong>Not yet:</strong> clean-platform validation of launchers and OS warning paths</li>
-        <li><strong>Not yet:</strong> provider permission for a pooled model route</li>
-        <li><strong>Not yet:</strong> an independently operated relay for experimental privacy traffic</li>
-      </ul>
-    </div>
-  </section>
-
   <section class="closing" aria-labelledby="closing-title">
     <div class="shell closing-inner">
       <p class="eyebrow">Built for the whole person</p>
@@ -509,12 +525,11 @@
       with surrendering an identity. Osanwë is exploring another path—one shaped by dignity,
       truthful limits, responsibility, and careful stewardship.</p>
       <div class="actions">
-        <a class="button primary" href="https://github.com/EzraStone/Osanwe/issues/new?template=beta-interest.yml" rel="noreferrer">Join the first ten</a>
+        <a class="button primary" href="https://github.com/EzraStone/Osanwe" rel="noreferrer">View the source</a>
         <a class="button secondary" href="design.html">Read the design</a>
       </div>
-      <p class="closing-note">Free technical beta preparation. Text-only synthetic or deliberately
-      non-sensitive prompts. No public gateway, production privacy guarantee, payment, or uptime
-      promise is offered yet.</p>
+      <p class="closing-note">Experimental open-source software. No public gateway, production
+      privacy guarantee, payment, or uptime promise is offered yet.</p>
     </div>
   </section>
 </main>
